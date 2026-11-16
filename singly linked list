@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+ 
+struct Node {
+    int quiz;
+    struct Node* next;
+};
+ 
+void display(struct Node* head) {
+    struct Node* certification = head;
+    while (certification != NULL) {
+        printf("%d -> ", certification->quiz);
+        certification = certification->next;
+    }
+    printf("NULL\n");
+}
+ 
+int main() {
+    struct Node* head = NULL;
+    struct Node* mcqs = NULL;
+    struct Node* test = NULL;
+ 
+    // Allocate nodes
+    head = (struct Node*)malloc(sizeof(struct Node));
+    mcqs = (struct Node*)malloc(sizeof(struct Node));
+    test = (struct Node*)malloc(sizeof(struct Node));
+ 
+    // Assign data and links
+    head->quiz = 10;
+    head->next = mcqs;
+ 
+    mcqs->quiz = 20;
+    mcqs->next = test;
+ 
+    test->quiz = 30;
+    test->next = NULL;
+ 
+    display(head);
+    return 0;
+}
