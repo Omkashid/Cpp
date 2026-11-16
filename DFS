@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int a[20][20], reach[20], n;
+
+void dfs(int v) {
+    int i;
+    reach[v] = 1;
+    for (i = 1; i <= n; i++) {
+        if (a[v][i] && !reach[i]) {
+            printf("%d -> %d\n", v, i);
+            dfs(i);
+        }
+    }
+}
+
+int main() {
+    int i, j, count = 0;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; i++) {
+        reach[i] = 0;
+        for (j = 1; j <= n; j++)
+            a[i][j] = 0;
+    }
+
+    printf("Enter the adjacency matrix (%d x %d):\n", n, n);
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= n; j++)
+            scanf("%d", &a[i][j]);
+
+    printf("\nDFS traversal edges:\n");
+    dfs(1);
+
+    for (i = 1; i <= n; i++)
+        if (reach[i])
+            count++;
+
+    printf("\nVisited %d of %d nodes.\n", count, n);
+    if (count == n)
+        printf("Graph is connected.\n");
+    else
+        printf("Graph is NOT connected — %d nodes unreachable from vertex 1.\n", n - count);
+
+    return 0;
+}
